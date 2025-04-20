@@ -1,7 +1,13 @@
+'use client';
+
+import { signIn } from 'next-auth/react';
 import React from 'react';
-import Link from 'next/link';
 
 const Index = () => {
+  const handleLogin = () => {
+    signIn('google', { redirectTo: '/home' });
+  };
+
   return (
     <div className="bg-base-100 text-base-content flex min-h-screen flex-col">
       <main className="flex flex-grow flex-col items-center justify-center px-4">
@@ -14,9 +20,9 @@ const Index = () => {
           resonate and ripple through minds.
         </p>
 
-        <Link href={'/home'} className='btn btn-neutral normal-case" text-sm'>
+        <button onClick={handleLogin} className='btn btn-neutral normal-case" text-sm'>
           Get Started
-        </Link>
+        </button>
       </main>
     </div>
   );
