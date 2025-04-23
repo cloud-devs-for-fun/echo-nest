@@ -33,7 +33,8 @@ const AddThreadForm = () => {
         <label className="mb-1 block text-sm font-medium">Title</label>
         <input
           type="text"
-          className="input input-bordered w-full"
+          className="input input-neutral w-full bg-transparent"
+          placeholder="Please type here..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
@@ -43,11 +44,12 @@ const AddThreadForm = () => {
       <div>
         <label className="mb-1 block text-sm font-medium">Thread</label>
         <textarea
-          className="textarea textarea-bordered w-full"
+          className="textarea textarea-neutral w-full bg-transparent"
+          placeholder="Please type here..."
           value={thread}
           onChange={(e) => setThread(e.target.value)}
           required
-        ></textarea>
+        />
       </div>
 
       <div className="flex justify-between">

@@ -6,6 +6,7 @@ import './globals.css';
 
 import Provider from './Provider';
 import { NavBar } from '@/component';
+import { cn } from '@/libs/cn';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,7 +30,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={cn(geistSans.variable, geistMono.variable, `antialiased`)}>
         <Provider>
           <NavBar />
           {children}

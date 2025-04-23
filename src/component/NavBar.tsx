@@ -18,7 +18,7 @@ export const NavBar = () => {
   console.log(session);
 
   return (
-    <nav className="flex w-full justify-end px-6 py-4">
+    <nav className="bg-base-100 text-base-content flex w-full justify-end px-6 py-4">
       <div className="flex items-center gap-4">
         {session ? (
           <>
@@ -34,7 +34,7 @@ export const NavBar = () => {
                 )}
               </div>
             </div>
-            <span className="text-sm text-gray-600">Hi, {session.user?.name}</span>
+            <span className="text-base-content text-sm">Hi, {session.user?.name}</span>
             <button onClick={handleLogout} className="btn btn-sm btn-outline normal-case">
               Logout
             </button>

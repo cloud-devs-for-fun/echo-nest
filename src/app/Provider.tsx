@@ -10,7 +10,7 @@ export const Provider = ({ children }: PropsWithChildren) => {
 
   return (
     <SessionProvider>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </SessionProvider>
   );
 };

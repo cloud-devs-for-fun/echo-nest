@@ -11,7 +11,7 @@ export const POST = async (req: NextRequest) => {
     const { userId, title, thread } = body;
 
     const postQuery = `
-    INSERT INTO threads (user_id, title, thread)
+    INSERT INTO threads ("userId", title, thread)
     VALUES ($1, $2, $3)
     RETURNING *`;
 

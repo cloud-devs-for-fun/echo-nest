@@ -9,7 +9,6 @@ const HomePage = () => {
       <div className="flex justify-between">
         <h1 className="mb-4 text-2xl font-bold">Threads</h1>
       </div>
-
       <AddThreadForm />
       <ThreadList />
     </div>

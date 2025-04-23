@@ -30,7 +30,6 @@ const ThreadList = () => {
   return (
     <>
       {isPending && <Loading />}
-
       {Array.isArray(threads) ? (
         <ThreadCard threads={threads as Thread[]} />
       ) : (
