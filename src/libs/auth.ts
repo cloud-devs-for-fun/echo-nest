@@ -7,4 +7,11 @@ import pool from './conn';
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PostgresAdapter(pool),
   providers: [Google],
+
+  callbacks: {
+    session({ session }) {
+      console.log(session.userId)
+      return session;
+    },
+  },
 });

@@ -15,7 +15,7 @@ export const NavBar = () => {
     signOut({ redirectTo: '/' });
   };
 
-  console.log(session);
+  console.log(session?.user?.id);
 
   return (
     <nav className="bg-base-100 text-base-content flex w-full justify-end px-6 py-4">
