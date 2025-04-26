@@ -11,7 +11,13 @@ interface IThreadCard {
 }
 
 const ThreadCard = ({ threads }: IThreadCard) => {
-  if (!Array.isArray(threads)) return null;
+  if (!Array.isArray(threads) || threads.length === 0) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <h1>No Data Available</h1>
+      </div>
+    );
+  }
 
   return threads?.map((thread) => (
     <div key={thread.id} className="mb-4 rounded border p-4 shadow">
@@ -27,18 +33,11 @@ const ThreadCard = ({ threads }: IThreadCard) => {
 const ThreadList = () => {
   const { data: threads, isPending } = useGetAllThreads();
 
-  return (
-    <>
-      {isPending && <Loading />}
-      {Array.isArray(threads) ? (
-        <ThreadCard threads={threads as Thread[]} />
-      ) : (
-        <div className="flex h-full items-center justify-center">
-          <h1>NO DATA</h1>
-        </div>
-      )}
-    </>
-  );
+  if (isPending) {
+    return <Loading />;
+  }
+
+  return <ThreadCard threads={threads as Thread[]} />;
 };
 
 export default ThreadList;

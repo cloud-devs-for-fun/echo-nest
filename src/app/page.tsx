@@ -2,6 +2,7 @@
 
 import { signIn } from 'next-auth/react';
 import React from 'react';
+import GoogleButton from 'react-google-button';
 
 const Index = () => {
   const handleLogin = () => {
@@ -18,9 +19,7 @@ const Index = () => {
           resonate and ripple through minds.
         </p>
 
-        <button onClick={handleLogin} className="btn btn-neutral text-sm normal-case">
-          Get Started
-        </button>
+        <GoogleButton onClick={handleLogin} />
       </div>
     </main>
   );
