@@ -4,8 +4,12 @@ export const Footer = () => {
   const date = new Date();
 
   return (
-    <footer className="bg-base-100 text-base-content flex h-32 w-full items-center justify-center">
-      <p className="text-base-content text-center">&copy; {date.getFullYear()}</p>
+    <footer className="footer footer-horizontal footer-center bg-neutral p-10">
+      <aside>
+        <p className="text-white">
+          Copyright &copy; {date.getFullYear()} - All right reserved by EchoNest Team
+        </p>
+      </aside>
     </footer>
   );
 };
