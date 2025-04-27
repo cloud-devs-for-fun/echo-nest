@@ -2,13 +2,13 @@ import React, { ReactNode } from 'react';
 import Image from 'next/image';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
-import { Cog, LogOut, ShieldUser } from 'lucide-react';
+import { Cog, LogOut, UserPen } from 'lucide-react';
 
 interface IUser {
   session: Session;
 }
 
-const User = ({ session }: IUser) => {
+export const User = ({ session }: IUser) => {
   const handleLogout = (): void => {
     signOut({ redirectTo: '/' });
   };
@@ -25,7 +25,8 @@ const User = ({ session }: IUser) => {
         >
           <li>
             <button className="btn btn-ghost justify-start">
-              <ShieldUser size={16} strokeWidth={3} />
+              <UserPen size={16} strokeWidth={3} />
+
               <span>{session.user?.name}</span>
             </button>
           </li>
