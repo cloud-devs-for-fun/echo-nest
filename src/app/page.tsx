@@ -1,25 +1,28 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import React from 'react';
-import GoogleButton from 'react-google-button';
+
+import { cn } from '@/libs/cn';
 
 const Index = () => {
-  const handleLogin = () => {
-    signIn('google', { redirectTo: '/home' });
-  };
-
   return (
-    <main className="bg-base-100 text-base-content flex min-h-screen flex-col">
+    <main className={cn('text-base-content bg-neutral flex min-h-screen flex-col')}>
       <div className="flex flex-grow flex-col items-center justify-center gap-5 px-4">
-        <h1 className="text-center text-5xl font-bold md:text-6xl">Echo Nest</h1>
-        <h2 className="text-center text-xl md:text-2xl">The Resonance of Ideas</h2>
-        <p className="max-w-xl text-center">
+        <h1 className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-center text-5xl font-bold text-transparent md:text-6xl">
+          Echo Nest
+        </h1>
+
+        <h2 className="text-center text-xl text-white md:text-2xl">The Resonance of Ideas</h2>
+        <p className="max-w-xl text-center text-white">
           A space where thoughts echo, grow, and spark new possibilities. Discover ideas that
           resonate and ripple through minds.
         </p>
 
-        <GoogleButton onClick={handleLogin} />
+        <button className="btn btn-wide btn-xl btn-active">
+          <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+            Get started
+          </span>
+        </button>
       </div>
     </main>
   );
