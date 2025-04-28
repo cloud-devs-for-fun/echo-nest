@@ -2,13 +2,11 @@
 
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 import { cn } from '@/libs/cn';
 
 import LoginModal from './LoginModal';
 import User from './User';
-import { navigationItems } from './utils';
 
 interface ILoginBtn {
   handleLogin: () => void;
@@ -28,8 +26,6 @@ const LoginButton = ({ handleLogin }: ILoginBtn) => {
 export const NavBar = () => {
   const [openLogin, setOpenLogin] = useState<boolean>(false);
 
-  const navigate = useRouter();
-
   const { data: session } = useSession();
 
   const handleOpenLogin = (): void => {
@@ -46,22 +42,20 @@ export const NavBar = () => {
     <>
       <nav
         className={cn(
-          'text-base-content bg-neutral flex w-full items-center justify-between px-6 py-4',
+          'text-base-content bg-neutral flex w-full items-center px-6 py-4',
+          session ? 'justify-between' : 'justify-end',
         )}
       >
-        <h1 className="text-2xl font-semibold tracking-widest text-white">ECHO NEST</h1>
-
-        <div>
-          {navigationItems.map((nav, ids) => (
-            <button key={ids} onClick={() => navigate.push(nav.path)} className="btn btn-link">
-              {nav.icon}
-            </button>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-4">
-          {session ? <User session={session} /> : <LoginButton handleLogin={handleOpenLogin} />}
-        </div>
+        {session ? (
+          <>
+            <h1 className="text-2xl font-semibold tracking-widest text-white">ECHO NEST</h1>
+            <div className="flex items-center gap-4">
+              <User session={session} />
+            </div>
+          </>
+        ) : (
+          <LoginButton handleLogin={handleOpenLogin} />
+        )}
       </nav>
 
       <LoginModal open={openLogin} close={handleCloseLogin} />

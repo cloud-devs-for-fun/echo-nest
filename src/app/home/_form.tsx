@@ -55,7 +55,7 @@ const AddThreadForm = () => {
       <div className="flex justify-between">
         <button
           type="submit"
-          disabled={isPending}
+          disabled={title === '' || thread === ''}
           className="btn btn-neutral roundedlg text-sm normal-case"
         >
           {isPending ? <span className="loading loading-bars loading-xl" /> : 'Create New Thread'}
