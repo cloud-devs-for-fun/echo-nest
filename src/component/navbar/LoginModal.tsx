@@ -16,7 +16,7 @@ export const LoginModal = ({ open, close }: ILoginModal) => {
 
   return (
     <div className={cn(`modal`, open && 'modal-open')}>
-      <div className="modal-box modal-middle bg-base-300 h-auto">
+      <div className="modal-box modal-middle h-auto bg-white">
         <button className="btn btn-circle btn-ghost absolute top-2 right-2" onClick={close}>
           <CircleX strokeWidth={3} />
         </button>

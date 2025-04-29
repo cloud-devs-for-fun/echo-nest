@@ -14,11 +14,10 @@ interface ILoginBtn {
 
 const LoginButton = ({ handleLogin }: ILoginBtn) => {
   return (
-    <button
-      onClick={handleLogin}
-      className="btn btn-sm btn-active text-base-content bg-base-300 normal-case"
-    >
-      Login
+    <button onClick={handleLogin} className="btn btn-md btn-outline normal-case">
+      <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+        Login
+      </span>
     </button>
   );
 };
@@ -42,8 +41,9 @@ export const NavBar = () => {
     <>
       <nav
         className={cn(
-          'text-base-content bg-neutral flex w-full items-center px-6 py-4',
+          'flex w-full items-center px-6 py-4',
           session ? 'justify-between' : 'justify-end',
+          session && 'bg-(--background-dark)',
         )}
       >
         {session ? (

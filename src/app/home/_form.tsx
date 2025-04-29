@@ -27,7 +27,7 @@ const AddThreadForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 pb-4">
-      <h2 className="text-xl font-semibold">Create a New Thread</h2>
+      <h2 className="text-xl font-semibold">Create a New Post</h2>
 
       <div>
         <label className="mb-1 block text-sm font-medium">Title</label>
@@ -44,8 +44,8 @@ const AddThreadForm = () => {
       <div>
         <label className="mb-1 block text-sm font-medium">Thread</label>
         <textarea
-          className="textarea textarea-neutral w-full bg-transparent"
-          placeholder="Please type here..."
+          className="textarea textarea-neutral h-96 w-full resize-none bg-transparent"
+          placeholder="Share your thoughts.."
           value={thread}
           onChange={(e) => setThread(e.target.value)}
           required
@@ -54,11 +54,11 @@ const AddThreadForm = () => {
 
       <div className="flex justify-between">
         <button
-          type="submit"
           disabled={title === '' || thread === ''}
-          className="btn btn-neutral roundedlg text-sm normal-case"
+          type="submit"
+          className="btn btn-outline btn-neutral disabled:border-gray-700 disabled:text-gray-700"
         >
-          {isPending ? <span className="loading loading-bars loading-xl" /> : 'Create New Thread'}
+          {isPending ? <span className="loading loading-bars loading-xl" /> : 'Create New Post'}
         </button>
 
         {isSuccess && <p className="text-green-500">Thread posted successfully!</p>}

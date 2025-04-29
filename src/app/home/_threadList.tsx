@@ -6,25 +6,43 @@ import React from 'react';
 import { Loading } from '@/component';
 import { useGetAllThreads } from '@/queries/thread';
 import Image from 'next/image';
+import { Heart, MessageSquareMore, Share } from 'lucide-react';
 
 const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
+  const renderActions = () => {
+    return (
+      <div className="card-actions items-center justify-end">
+        <button className="btn btn-sm btn-outline">
+          <Heart strokeWidth={1} size={16} /> 1.1k
+        </button>
+        <button className="btn btn-sm btn-outline">
+          <MessageSquareMore strokeWidth={1} size={16} /> 1.1k
+        </button>
+        <button className="btn btn-sm btn-outline">
+          <Share strokeWidth={1} size={16} />
+          1.1k
+        </button>
+      </div>
+    );
+  };
+
   return (
     <div className="card card-xl card-border w-full bg-white shadow-lg">
       <div className="card-body">
         <div className="flex items-center gap-3">
           <div className="avatar avatar-placeholder">
-            <div className="ring-offset-base-100 bg-neutral text-neutral-content w-10 rounded-full ring ring-purple-700 ring-offset-2">
-              <Image src={image} alt={image ?? 'User avatar'} height={250} width={250} />
+            <div className="w-10 rounded-full ring ring-purple-500 ring-offset-2">
+              <Image src={image} alt={image ?? name} height={250} width={250} />
             </div>
           </div>
           <p className="text-gray-700">{name}</p>
         </div>
-
         <h2 className="card-title">{title}</h2>
-        <p className="mt-2 text-gray-700">{thread}</p>
         <p className="mt-1 text-sm text-gray-500">
           Posted on {new Date(created_at).toLocaleString()}
         </p>
+        <p className="mt-2 text-gray-700">{thread}</p>
+        {renderActions()}
       </div>
     </div>
   );
