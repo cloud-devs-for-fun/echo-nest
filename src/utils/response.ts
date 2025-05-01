@@ -1,8 +1,12 @@
-import { STATUS_CODE_TYPE } from './constant';
+import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-export const jsonResponse = <T>(data: T, status: STATUS_CODE_TYPE): Response => {
+export const jsonResponse = <T>(data: T, statusCode: StatusCodes): Response => {
+  const statusKey = StatusCodes[statusCode] as keyof typeof ReasonPhrases;
+  const statusText = ReasonPhrases[statusKey];
+
   return new Response(JSON.stringify(data), {
-    status,
+    status: statusCode,
+    statusText: statusText,
     headers: { 'Content-Type': 'application/json' },
   });
 };

@@ -3,12 +3,21 @@
 import { IThreadCard, Thread } from './_type';
 import React from 'react';
 
-import { Loading } from '@/component';
-import { useGetAllThreads } from '@/queries/thread';
 import Image from 'next/image';
 import { Heart, MessageSquareMore, Share } from 'lucide-react';
+import size from 'lodash/size';
+
+import { Loading } from '@/component';
+
+import { formattedDate } from '@/utils/helper';
+import { DateFormat } from '@/utils/enums';
+
+import { useGetAllThreads } from '@/queries/thread';
 
 const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
+  const renderThreadParagraph =
+    size(thread) >= 100 ? `${thread.slice(0, 600)}... see more` : thread;
+
   const renderActions = () => {
     return (
       <div className="card-actions items-center justify-end">
@@ -27,7 +36,7 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
   };
 
   return (
-    <div className="card card-xl card-border w-full bg-white shadow-lg">
+    <div className="card card-xl card-border h-[500px] w-full bg-white shadow-lg">
       <div className="card-body">
         <div className="flex items-center gap-3">
           <div className="avatar avatar-placeholder">
@@ -37,11 +46,16 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
           </div>
           <p className="text-gray-700">{name}</p>
         </div>
-        <h2 className="card-title">{title}</h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Posted on {new Date(created_at).toLocaleString()}
-        </p>
-        <p className="mt-2 text-gray-700">{thread}</p>
+
+        <div>
+          <h2 className="card-title w-full">{title}</h2>
+          <p className="mt-1 text-sm text-gray-500">
+            Posted on {formattedDate(created_at, DateFormat.WEEKDAY)}
+          </p>
+        </div>
+
+        <p className="text-gray-700">{renderThreadParagraph}</p>
+
         {renderActions()}
       </div>
     </div>
@@ -58,7 +72,7 @@ const Threads = ({ threads }: IThreadCard) => {
   }
 
   return (
-    <div className="flex gap-5">
+    <div className="grid grid-cols-2 gap-5">
       {threads?.map((thread) => (
         <ThreadCards
           key={thread.id}
