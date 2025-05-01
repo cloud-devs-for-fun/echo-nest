@@ -3,8 +3,19 @@
 import React from 'react';
 
 import { cn } from '@/libs/cn';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const Index = () => {
+  const { status } = useSession();
+  const router = useRouter();
+
+  const handleRedirect = () => {
+    if (status === 'unauthenticated') return signIn('google', { redirectTo: '/home' });
+
+    return router.push('/home');
+  };
+
   return (
     <main className={cn('flex min-h-screen flex-col')}>
       <div className="flex flex-grow flex-col items-center justify-center gap-5 px-4">
@@ -18,7 +29,7 @@ const Index = () => {
           resonate and ripple through minds.
         </p>
 
-        <button className="btn btn-wide btn-xl btn-active">
+        <button onClick={handleRedirect} className="btn btn-wide btn-xl btn-outline">
           <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
             Get started
           </span>

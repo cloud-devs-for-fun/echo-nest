@@ -1,6 +1,5 @@
 import React from 'react';
 
-// import AddThreadForm from './_form';
 import ThreadList from './_threadList';
 import { Flame, Search } from 'lucide-react';
 import NewPost from './_newPost';
@@ -11,8 +10,6 @@ const HomePage = () => {
   return (
     <>
       <div className="flex flex-col gap-5 rounded-lg p-4">
-        {/* <AddThreadForm /> */}
-
         <div className="flex items-center justify-between">
           <h1 className="text-lg font-bold">Recent</h1>
 
