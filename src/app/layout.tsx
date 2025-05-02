@@ -4,9 +4,10 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import './globals.css';
 
-import Provider from './Provider';
 import { NavBar } from '@/component';
 import { cn } from '@/libs/cn';
+
+import Provider from './_provider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -21,6 +22,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: 'Echo Nest',
   description: 'The Resonance of Ideas',
+  icons: {
+    icon: 'vercel.svg',
+    apple: 'vercel.svg',
+  },
 };
 
 export default async function RootLayout({
