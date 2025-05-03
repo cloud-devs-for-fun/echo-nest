@@ -26,7 +26,10 @@ export const POST = async (req: NextRequest) => {
 
     const result = await pool.query(ThreadsRepository.postThread, [session.user.id, title, thread]);
 
-    return jsonResponse(result.rows[0], StatusCodes.CREATED);
+    return jsonResponse(
+      { message: 'Thread created successfully', data: result.rows[0] },
+      StatusCodes.CREATED,
+    );
   } catch (error) {
     console.log(error);
     return jsonResponse({ message: 'Something wrong!' }, StatusCodes.INTERNAL_SERVER_ERROR);

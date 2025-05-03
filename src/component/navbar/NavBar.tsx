@@ -35,8 +35,6 @@ export const NavBar = () => {
     return setOpenLogin(!openLogin);
   };
 
-  console.log(session?.user?.id);
-
   return (
     <>
       <nav

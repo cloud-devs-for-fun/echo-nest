@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Settings = () => {
+const Settings = async () => {
   return <div>Settings Page</div>;
 };
 

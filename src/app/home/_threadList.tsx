@@ -54,7 +54,9 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
           </p>
         </div>
 
-        <p className="text-gray-700">{renderThreadParagraph}</p>
+        <div className="h-full overflow-y-auto whitespace-pre-wrap">
+          <p className="text-gray-700">{renderThreadParagraph}</p>
+        </div>
 
         {renderActions()}
       </div>
