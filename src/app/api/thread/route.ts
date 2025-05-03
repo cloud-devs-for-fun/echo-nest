@@ -11,9 +11,9 @@ import { ThreadsRepository } from '@/service/repositories/threads';
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
+
     const session = await auth();
 
-    console.log('userId', session);
     if (!session || !session.user || !session.user.id) {
       return jsonResponse({ message: 'User is not authenticated' }, StatusCodes.UNAUTHORIZED);
     }
@@ -26,13 +26,9 @@ export const POST = async (req: NextRequest) => {
 
     const result = await pool.query(ThreadsRepository.postThread, [session.user.id, title, thread]);
 
-    return jsonResponse(
-      { message: 'Thread created successfully', data: result.rows[0] },
-      StatusCodes.CREATED,
-    );
+    return jsonResponse(result.rows[0], StatusCodes.CREATED);
   } catch (error) {
-    console.log(error);
-    return jsonResponse({ message: 'Something wrong!' }, StatusCodes.INTERNAL_SERVER_ERROR);
+    return jsonResponse({ message: error }, StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
 

@@ -95,8 +95,9 @@ const ThreadList = () => {
   if (isPending) {
     return <Loading />;
   }
+  console.info('thread', threads);
 
-  return <Threads threads={threads as Thread[]} />;
+  return <Threads threads={threads?.data as Thread[]} />;
 };
 
 export default ThreadList;
