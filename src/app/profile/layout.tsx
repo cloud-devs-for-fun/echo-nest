@@ -1,10 +1,9 @@
 // import { Footer } from '@/component';
+import { Unauthorized } from '@/component';
+import { auth } from '@/libs/auth';
 import React, { PropsWithChildren } from 'react';
 
-import { auth } from '@/libs/auth';
-import { Unauthorized } from '@/component';
-
-const MainLayout = async ({ children }: PropsWithChildren) => {
+const ProfileLayout = async ({ children }: PropsWithChildren) => {
   const session = await auth();
 
   if (!session) return <Unauthorized />;
@@ -17,4 +16,4 @@ const MainLayout = async ({ children }: PropsWithChildren) => {
   );
 };
 
-export default MainLayout;
+export default ProfileLayout;

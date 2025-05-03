@@ -1,14 +1,18 @@
+'use client';
+
 import React, { ReactNode } from 'react';
 import Image from 'next/image';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { Cog, LogOut, UserPen } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface IUser {
   session: Session;
 }
 
 export const User = ({ session }: IUser) => {
+  const router = useRouter();
   const handleLogout = (): void => {
     signOut({ redirectTo: '/' });
   };
@@ -24,14 +28,17 @@ export const User = ({ session }: IUser) => {
           aria-labelledby="user-menu"
         >
           <li>
-            <button className="btn btn-ghost justify-start">
+            <button className="btn btn-ghost justify-start" onClick={() => router.push('/profile')}>
               <UserPen size={16} strokeWidth={3} />
 
               <span>{session.user?.name}</span>
             </button>
           </li>
           <li>
-            <button className="btn btn-ghost justify-start">
+            <button
+              className="btn btn-ghost justify-start"
+              onClick={() => router.push('/settings')}
+            >
               <Cog size={16} strokeWidth={3} />
               Settings
             </button>

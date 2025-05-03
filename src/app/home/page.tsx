@@ -6,13 +6,11 @@ import NewPost from './_newPost';
 
 const menuItem = ['Feeds', 'All', 'Following', 'Latest'];
 
-const HomePage = () => {
+const HomePage = async () => {
   return (
     <>
       <div className="flex flex-col gap-5 rounded-lg p-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-lg font-bold">Recent</h1>
-
           <label className="input input-neutral w-[400px] rounded-lg bg-white">
             <Search size={20} />
             <input type="search" required placeholder="Search" />

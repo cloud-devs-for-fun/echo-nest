@@ -1,5 +1,6 @@
 'use client';
 
+import { cn } from '@/libs/cn';
 import { usePostThread } from '@/queries/thread';
 import React, { useState } from 'react';
 
@@ -56,7 +57,9 @@ const AddThreadForm = () => {
         <button
           disabled={title === '' || thread === ''}
           type="submit"
-          className="btn btn-outline btn-neutral disabled:border-gray-700 disabled:text-gray-700"
+          className={cn(
+            'btn btn-outline bg-(--background-dark) text-white disabled:border-gray-700 disabled:text-gray-700',
+          )}
         >
           {isPending ? <span className="loading loading-bars loading-xl" /> : 'Create New Post'}
         </button>

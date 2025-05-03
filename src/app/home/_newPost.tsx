@@ -14,7 +14,10 @@ const NewPost = () => {
 
   return (
     <>
-      <button onClick={handleOpenPost} className="btn btn-neutral btn-wide rounded-lg">
+      <button
+        onClick={handleOpenPost}
+        className="btn btn-wide h-14 rounded-lg bg-(--background-dark) text-white"
+      >
         <Plus /> New Post
       </button>
 
