@@ -35,6 +35,12 @@ export const POST = async (req: NextRequest) => {
 export const GET = async () => {
   const result = await pool.query(ThreadsRepository.allThreads);
 
+  const session = await auth();
+
+  if (!session || !session.user || !session.user.id) {
+    return jsonResponse({ message: 'User is not authenticated' }, StatusCodes.UNAUTHORIZED);
+  }
+
   if (result.rows.length === 0)
     return jsonResponse({ threads: [], message: 'NO DATA AVAILABLE' }, StatusCodes.NO_CONTENT);
 

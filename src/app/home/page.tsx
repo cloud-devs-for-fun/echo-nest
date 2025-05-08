@@ -28,7 +28,7 @@ const HomePage = async () => {
             ))}
 
             <li>
-              <button className="btn btn-ghost">
+              <button className="btn btn-ghost" title="hottest">
                 <Flame strokeWidth={3} color="red" />
               </button>
             </li>

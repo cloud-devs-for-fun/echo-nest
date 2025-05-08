@@ -1,12 +1,13 @@
 'use client';
 
-import { cn } from '@/libs/cn';
-import { usePostThread } from '@/queries/thread';
 import React, { useState } from 'react';
 
+import { cn } from '@/libs/cn';
+import { usePostThread } from '@/queries/thread';
+
 const AddThreadForm = () => {
-  const [title, setTitle] = useState('');
-  const [thread, setThread] = useState('');
+  const [title, setTitle] = useState<string>('');
+  const [thread, setThread] = useState<string>('');
   const { mutate, isPending, isSuccess, isError, error } = usePostThread();
 
   const handleSubmit = (e: React.FormEvent) => {

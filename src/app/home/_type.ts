@@ -1,8 +1,8 @@
 export interface Thread {
-  id?: string;
+  id: string;
   name: string;
   image: string;
-  title: string;
+  title?: string;
   thread: string;
   created_at: string;
 }

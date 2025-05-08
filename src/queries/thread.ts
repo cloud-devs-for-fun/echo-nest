@@ -6,7 +6,7 @@ const getAllThreads = async (): Promise<ResponseStatus<Thread[]>> => {
   return getFetch('/api/thread');
 };
 
-const postThread = async (thread: ResponseStatus<Partial<Thread>>) => {
+const postThread = async (thread: Partial<Thread>): Promise<ResponseStatus<Partial<Thread>>> => {
   return postFetch('/api/thread', thread);
 };
 
@@ -19,6 +19,7 @@ export const useGetAllThreads = () => {
 
 export const usePostThread = () => {
   return useMutation({
-    mutationFn: (newThread: ResponseStatus<Partial<Thread>>) => postThread(newThread),
+    mutationFn: (newThread: Partial<Thread>) => postThread(newThread),
   });
 };
+  

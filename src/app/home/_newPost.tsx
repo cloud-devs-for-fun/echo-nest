@@ -24,6 +24,7 @@ const NewPost = () => {
       <div className={cn(`modal`, openPost && 'modal-open')}>
         <div className="modal-box w-11/12 max-w-5xl bg-white">
           <button
+            title="close"
             className="btn btn-circle btn-ghost absolute top-2 right-2"
             onClick={() => setOpenPost(!openPost)}
           >
