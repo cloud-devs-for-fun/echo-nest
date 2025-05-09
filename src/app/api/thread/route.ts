@@ -71,3 +71,25 @@ export const DELETE = async (req: NextRequest) => {
     return jsonResponse({ message: error }, StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };
+
+export const PUT = async (req: NextRequest) => {
+  try {
+    const id = req.nextUrl.searchParams.get('id');
+    const body = await req.json();
+    const session = await auth();
+
+    if (!session || !session.user || !session.user.id) {
+      return jsonResponse({ message: 'User is not authenticated' }, StatusCodes.UNAUTHORIZED);
+    }
+
+    const { title, thread } = body;
+
+    if (!title || !thread) {
+      return jsonResponse({ message: 'All fields are required!' }, StatusCodes.BAD_REQUEST);
+    }
+
+    return jsonResponse({ id, body }, StatusCodes.CREATED);
+  } catch (error) {
+    return jsonResponse({ message: error }, StatusCodes.INTERNAL_SERVER_ERROR);
+  }
+};
