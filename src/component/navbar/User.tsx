@@ -1,11 +1,12 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import Image from 'next/image';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
-import { Cog, LogOut, UserPen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { Cog, LogOut, UserPen } from 'lucide-react';
+
+import Avatar from '../Avatar';
 
 interface IUser {
   session: Session;
@@ -56,24 +57,22 @@ export const User = ({ session }: IUser) => {
 
   const renderAvatar = () => {
     return renderDropdown(
-      <div tabIndex={0} role="button" className="avatar hover:cursor-pointer">
-        <div className="ring-primary ring-offset-base-100 w-8 rounded-full ring ring-offset-2">
-          {session?.user?.image && (
-            <Image
-              src={session.user.image}
-              alt={session.user.name ?? 'User avatar'}
-              height={250}
-              width={250}
-            />
-          )}
-        </div>
+      <div tabIndex={0} className="hover:cursor-pointer">
+        {session?.user?.image && (
+          <Avatar
+            type="image"
+            src={session.user.image}
+            alt={session.user.name ?? 'User avatar'}
+            className="w-10"
+          />
+        )}
       </div>,
     );
   };
 
   return (
     <>
-      <span className="text-sm text-white">Welcome, {session.user?.name?.split(/\s+/)[0]}</span>
+      <span className="text-sm">Welcome, {session.user?.name?.split(/\s+/)[0]}</span>
 
       {renderAvatar()}
     </>

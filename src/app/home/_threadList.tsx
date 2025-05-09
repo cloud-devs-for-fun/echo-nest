@@ -3,32 +3,45 @@
 import { IThreadCard, Thread } from './_type';
 import React from 'react';
 
-import Image from 'next/image';
-import { Heart, MessageSquareMore, Share } from 'lucide-react';
+import { Ellipsis, Heart, Share2 } from 'lucide-react';
 import size from 'lodash/size';
 
-import { Loading } from '@/component';
+import { Avatar, Loading } from '@/component';
 
 import { formattedDate } from '@/utils/helper';
 import { DateFormat } from '@/utils/enums';
 
 import { useGetAllThreads } from '@/queries/thread';
+import Comments from './_comments';
 
 const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
   const renderThreadParagraph =
     size(thread) >= 100 ? `${thread.slice(0, 600)}... see more` : thread;
 
+  const renderHeader = () => {
+    return (
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Avatar type="image" src={image} alt={image ?? name} className="w-10" />
+          <p className="text-gray-700">{name}</p>
+        </div>
+
+        <button title="options" className="btn btn-ghost btn-square font-bold">
+          <Ellipsis />
+        </button>
+      </div>
+    );
+  };
+
   const renderActions = () => {
     return (
       <div className="card-actions items-center justify-end">
         <button className="btn btn-sm btn-outline">
-          <Heart strokeWidth={1} size={16} /> 1.1k
+          <Heart strokeWidth={3} size={16} fill="red" color="red" /> 1.1k
         </button>
+        <Comments />
         <button className="btn btn-sm btn-outline">
-          <MessageSquareMore strokeWidth={1} size={16} /> 1.1k
-        </button>
-        <button className="btn btn-sm btn-outline">
-          <Share strokeWidth={1} size={16} />
+          <Share2 strokeWidth={3} size={16} />
           1.1k
         </button>
       </div>
@@ -36,21 +49,14 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
   };
 
   return (
-    <div className="card card-xl card-border h-[500px] w-full bg-white shadow-lg">
+    <div className="card card-xl card-border h-[500px] w-full bg-gray-100 shadow-lg">
       <div className="card-body">
-        <div className="flex items-center gap-3">
-          <div className="avatar avatar-placeholder">
-            <div className="w-10 rounded-full ring ring-purple-500 ring-offset-2">
-              <Image src={image} alt={image ?? name} height={250} width={250} />
-            </div>
-          </div>
-          <p className="text-gray-700">{name}</p>
-        </div>
+        {renderHeader()}
 
         <div>
           <h2 className="card-title w-full">{title}</h2>
           <p className="mt-1 text-sm text-gray-500">
-            Posted on {formattedDate(created_at, DateFormat.WEEKDAY)}
+            Posted on {formattedDate(created_at, DateFormat.DEFAULT)}
           </p>
         </div>
 

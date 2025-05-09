@@ -1,5 +1,5 @@
 export interface Thread {
-  id: string;
+  id?: string;
   name: string;
   image: string;
   title?: string;

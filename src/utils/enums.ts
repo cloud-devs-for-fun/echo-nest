@@ -5,6 +5,6 @@ export enum DateFormat {
   WEEKDAY = 'dddd, MMMM Do YYYY',
   SHORT = 'MMM D, YYYY',
   TIME_ONLY = 'hh:mm A',
-  CUSTOM1 = 'DD-MM-YYYY [at] HH:mm',
+  CUSTOM1 = 'DD-MMM-YYYY [at] HH:mm',
   TIMESTAMP = 'YYYY/MM/DD HH:mm:ss',
 }

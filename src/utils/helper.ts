@@ -7,5 +7,6 @@ export const formattedDate = (
   format: DateFormat = DateFormat.DEFAULT,
 ): string => {
   if (!date) return '';
+
   return moment(date).format(format);
 };

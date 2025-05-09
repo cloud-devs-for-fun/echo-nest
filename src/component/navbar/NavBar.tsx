@@ -41,12 +41,13 @@ export const NavBar = () => {
         className={cn(
           'flex w-full items-center px-6 py-4',
           session ? 'justify-between' : 'justify-end',
-          session && 'bg-(--background-dark)',
         )}
       >
         {session ? (
           <>
-            <h1 className="text-2xl font-semibold tracking-widest text-white">ECHO NEST</h1>
+            <h1 className="text-2xl font-semibold tracking-widest text-(--background-dark)">
+              ECHO NEST
+            </h1>
             <div className="flex items-center gap-4">
               <User session={session} />
             </div>
