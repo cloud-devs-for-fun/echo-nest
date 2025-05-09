@@ -8,6 +8,21 @@ import { jsonResponse } from '@/utils/response';
 
 import { ThreadsRepository } from '@/service/repositories/threads';
 
+export const GET = async () => {
+  const result = await pool.query(ThreadsRepository.allThreads);
+
+  const session = await auth();
+
+  if (!session || !session.user || !session.user.id) {
+    return jsonResponse({ message: 'User is not authenticated' }, StatusCodes.UNAUTHORIZED);
+  }
+
+  if (result.rows.length === 0)
+    return jsonResponse({ threads: [], message: 'NO DATA AVAILABLE' }, StatusCodes.NO_CONTENT);
+
+  return jsonResponse(result.rows, StatusCodes.OK);
+};
+
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
@@ -32,17 +47,27 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-export const GET = async () => {
-  const result = await pool.query(ThreadsRepository.allThreads);
+export const DELETE = async (req: NextRequest) => {
+  try {
+    const id = req.nextUrl.searchParams.get('id');
 
-  const session = await auth();
+    const session = await auth();
+    if (!session || !session.user || !session.user.id) {
+      return jsonResponse({ message: 'User is not authenticated' }, StatusCodes.UNAUTHORIZED);
+    }
 
-  if (!session || !session.user || !session.user.id) {
-    return jsonResponse({ message: 'User is not authenticated' }, StatusCodes.UNAUTHORIZED);
+    if (!id) {
+      return jsonResponse({ message: 'Missing post ID' }, StatusCodes.BAD_REQUEST);
+    }
+
+    const result = await pool.query(ThreadsRepository.deleteThread, [id]);
+
+    if (result.rowCount === 0) {
+      return jsonResponse({ message: 'Post not found or already deleted' }, StatusCodes.NOT_FOUND);
+    }
+
+    return jsonResponse({ message: `Post ${id} deleted successfully` }, StatusCodes.OK);
+  } catch (error) {
+    return jsonResponse({ message: error }, StatusCodes.INTERNAL_SERVER_ERROR);
   }
-
-  if (result.rows.length === 0)
-    return jsonResponse({ threads: [], message: 'NO DATA AVAILABLE' }, StatusCodes.NO_CONTENT);
-
-  return jsonResponse(result.rows, StatusCodes.OK);
 };
