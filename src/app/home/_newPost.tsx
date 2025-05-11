@@ -16,7 +16,7 @@ const NewPost = () => {
     <>
       <button
         onClick={handleOpenPost}
-        className="btn btn-wide h-14 rounded-lg bg-(--background-dark) text-white"
+        className="btn lg:btn-wide w-full rounded-lg bg-(--background-dark) text-white"
       >
         <Plus /> New Post
       </button>

@@ -16,7 +16,7 @@ import Comments from './_comments';
 
 const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
   const renderThreadParagraph =
-    size(thread) >= 100 ? `${thread.slice(0, 600)}... see more` : thread;
+    size(thread) >= 100 ? `${thread.slice(0, 450)}... see more` : thread;
 
   const renderHeader = () => {
     return (
@@ -49,8 +49,8 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
   };
 
   return (
-    <div className="card card-xl card-border h-[500px] w-full bg-gray-100 shadow-lg">
-      <div className="card-body">
+    <div className="card card-xl card-border h-full w-full overflow-hidden bg-gray-100 shadow-lg lg:h-[500px]">
+      <div className="card-body gap-3">
         {renderHeader()}
 
         <div>
@@ -60,7 +60,7 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
           </p>
         </div>
 
-        <div className="h-full overflow-y-auto whitespace-pre-wrap">
+        <div className="h-full flex-wrap">
           <p className="text-gray-700">{renderThreadParagraph}</p>
         </div>
 
