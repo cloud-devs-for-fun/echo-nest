@@ -22,7 +22,7 @@ const CommentBox = () => {
   };
 
   return (
-    <div className="card bg-base-content">
+    <div className="card bg-blue-300/10">
       <div className="card-body p-4">
         {commentHeader()}
 

@@ -11,7 +11,7 @@ const HomePage = async () => {
     <>
       <div className="flex flex-col gap-5 rounded-lg p-4">
         <div className="flex flex-col items-center justify-between lg:flex-row">
-          <label className="input input-neutral w-full rounded-lg bg-white">
+          <label className="input input-neutral w-full rounded-lg bg-white lg:w-1/2">
             <Search size={20} />
             <input type="search" required placeholder="Search" />
             <kbd className="kbd kbd-lg border-neutral bg-white font-semibold">⌘</kbd>

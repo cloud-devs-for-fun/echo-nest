@@ -60,7 +60,7 @@ export const DELETE = async (req: NextRequest) => {
       return jsonResponse({ message: 'Missing post ID' }, StatusCodes.BAD_REQUEST);
     }
 
-    const result = await pool.query(ThreadsRepository.deleteThread, [id]);
+    const result = await pool.query(ThreadsRepository.deleteThread, [id, session.user.id]);
 
     if (result.rowCount === 0) {
       return jsonResponse({ message: 'Post not found or already deleted' }, StatusCodes.NOT_FOUND);
@@ -74,7 +74,7 @@ export const DELETE = async (req: NextRequest) => {
 
 export const PUT = async (req: NextRequest) => {
   try {
-    const id = req.nextUrl.searchParams.get('id');
+    const threadId = req.nextUrl.searchParams.get('id');
     const body = await req.json();
     const session = await auth();
 
@@ -88,8 +88,24 @@ export const PUT = async (req: NextRequest) => {
       return jsonResponse({ message: 'All fields are required!' }, StatusCodes.BAD_REQUEST);
     }
 
-    return jsonResponse({ id, body }, StatusCodes.CREATED);
+    const result = await pool.query(ThreadsRepository.putThread, [
+      title,
+      thread,
+      threadId,
+      session.user.id,
+    ]);
+
+    if (result.rowCount === 0) {
+      return jsonResponse({ message: 'Thread not found or unauthorized' }, StatusCodes.NOT_FOUND);
+    }
+
+    console.info(
+      `[PUT /thread] Thread ${threadId} updated successfully by User ${session.user.id}`,
+    );
+
+    return jsonResponse(result.rows[0], StatusCodes.OK);
   } catch (error) {
+    console.error('[PUT /thread] Internal server error:', error);
     return jsonResponse({ message: error }, StatusCodes.INTERNAL_SERVER_ERROR);
   }
 };

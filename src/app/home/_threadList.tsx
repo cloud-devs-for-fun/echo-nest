@@ -3,20 +3,27 @@
 import { IThreadCard, Thread } from './_type';
 import React from 'react';
 
-import { Ellipsis, Heart, Share2 } from 'lucide-react';
+import { Ellipsis, Heart, Share2, SquarePen, Trash2 } from 'lucide-react';
 import size from 'lodash/size';
 
 import { Avatar, Loading } from '@/component';
-
 import { formattedDate } from '@/utils/helper';
 import { DateFormat } from '@/utils/enums';
-
 import { useGetAllThreads } from '@/queries/thread';
+
 import Comments from './_comments';
 
-const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
+const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => {
   const renderThreadParagraph =
     size(thread) >= 100 ? `${thread.slice(0, 450)}... see more` : thread;
+
+  const handleEdit = (threadId: string) => {
+    console.log('ID EDIT:', threadId);
+  };
+
+  const handleDelete = (threadId: string) => {
+    console.log('ID DELETE:', threadId);
+  };
 
   const renderHeader = () => {
     return (
@@ -26,9 +33,36 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
           <p className="text-gray-700">{name}</p>
         </div>
 
-        <button title="options" className="btn btn-ghost btn-square font-bold">
-          <Ellipsis />
-        </button>
+        <div className="dropdown dropdown-end">
+          <button title="options" className="btn btn-ghost btn-square font-bold">
+            <Ellipsis />
+          </button>
+
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu z-1 w-24 rounded-lg bg-white p-1 shadow-sm outline"
+            aria-labelledby="options"
+          >
+            <li className="w-full">
+              <button
+                className="btn btn-ghost btn-xs text-primary justify-between"
+                onClick={() => handleEdit(id as string)}
+              >
+                Edit
+                <SquarePen size={16} />
+              </button>
+            </li>
+            <li className="w-full">
+              <button
+                className="btn btn-ghost btn-xs text-error justify-between"
+                onClick={() => handleDelete(id as string)}
+              >
+                Delete
+                <Trash2 size={16} />
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     );
   };
@@ -41,7 +75,7 @@ const ThreadCards = ({ name, image, title, thread, created_at }: Thread) => {
         </button>
         <Comments />
         <button className="btn btn-sm btn-outline">
-          <Share2 strokeWidth={3} size={16} />
+          <Share2 strokeWidth={3} size={16} color="orange" />
           1.1k
         </button>
       </div>
@@ -84,6 +118,7 @@ const Threads = ({ threads }: IThreadCard) => {
       {threads?.map((thread) => (
         <ThreadCards
           key={thread.id}
+          id={thread.id}
           name={thread.name}
           image={thread.image}
           title={thread.title}
@@ -101,9 +136,12 @@ const ThreadList = () => {
   if (isPending) {
     return <Loading />;
   }
-  console.info('thread', threads);
 
-  return <Threads threads={threads?.data as Thread[]} />;
+  return (
+    <>
+      <Threads threads={threads?.data as Thread[]} />
+    </>
+  );
 };
 
 export default ThreadList;
