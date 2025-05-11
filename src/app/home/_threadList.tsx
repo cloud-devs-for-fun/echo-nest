@@ -1,7 +1,7 @@
 'use client';
 
 import { IThreadCard, Thread } from './_type';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Ellipsis, Heart, Share2, SquarePen, Trash2 } from 'lucide-react';
 import size from 'lodash/size';
@@ -12,13 +12,17 @@ import { DateFormat } from '@/utils/enums';
 import { useGetAllThreads } from '@/queries/thread';
 
 import Comments from './_comments';
+import EditPost from './_edit';
 
 const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => {
+  const [openEditForm, setOpenEditForm] = useState<boolean>(false);
+
   const renderThreadParagraph =
     size(thread) >= 100 ? `${thread.slice(0, 450)}... see more` : thread;
 
   const handleEdit = (threadId: string) => {
     console.log('ID EDIT:', threadId);
+    setOpenEditForm(!openEditForm);
   };
 
   const handleDelete = (threadId: string) => {
@@ -83,24 +87,34 @@ const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => 
   };
 
   return (
-    <div className="card card-xl card-border h-full w-full overflow-hidden bg-gray-100 shadow-lg lg:h-[500px]">
-      <div className="card-body gap-3">
-        {renderHeader()}
+    <>
+      <div className="card card-xl card-border h-full w-full overflow-hidden bg-gray-100 shadow-lg lg:h-[500px]">
+        <div className="card-body gap-3">
+          {renderHeader()}
 
-        <div>
-          <h2 className="card-title w-full">{title}</h2>
-          <p className="mt-1 text-sm text-gray-500">
-            Posted on {formattedDate(created_at, DateFormat.DEFAULT)}
-          </p>
+          <div>
+            <h2 className="card-title w-full">{title}</h2>
+            <p className="mt-1 text-sm text-gray-500">
+              Posted on {formattedDate(created_at, DateFormat.DEFAULT)}
+            </p>
+          </div>
+
+          <div className="h-full flex-wrap">
+            <p className="text-gray-700">{renderThreadParagraph}</p>
+          </div>
+
+          {renderActions()}
         </div>
-
-        <div className="h-full flex-wrap">
-          <p className="text-gray-700">{renderThreadParagraph}</p>
-        </div>
-
-        {renderActions()}
       </div>
-    </div>
+
+      <EditPost
+        id={id}
+        title={title}
+        thread={thread}
+        openEditForm={openEditForm}
+        setOpenEditForm={() => setOpenEditForm(!openEditForm)}
+      />
+    </>
   );
 };
 

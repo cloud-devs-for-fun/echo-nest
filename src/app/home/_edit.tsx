@@ -8,7 +8,7 @@ interface EditPostProps extends Partial<Thread> {
   setOpenEditForm: () => void;
 }
 
-const EditPost = ({ openEditForm, setOpenEditForm, id }: EditPostProps) => {
+const EditPost = ({ openEditForm, setOpenEditForm, id, title, thread }: EditPostProps) => {
   return (
     <>
       <div className={cn(`modal`, openEditForm && 'modal-open')}>
@@ -22,6 +22,8 @@ const EditPost = ({ openEditForm, setOpenEditForm, id }: EditPostProps) => {
           </button>
 
           <h2>{id}</h2>
+          <h2>{title}</h2>
+          <h2>{thread}</h2>
         </div>
       </div>
     </>
