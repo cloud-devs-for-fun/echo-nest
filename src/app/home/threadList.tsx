@@ -22,6 +22,7 @@ const Threads = ({ threads }: IThreadCard) => {
       {threads?.map((thread) => (
         <ThreadCards
           key={thread.id}
+          userId={thread.userId}
           id={thread.id}
           name={thread.name}
           image={thread.image}
@@ -35,7 +36,7 @@ const Threads = ({ threads }: IThreadCard) => {
 };
 
 const ThreadList = () => {
-  const { data: threads, isPending, refetch } = useGetAllThreads();
+  const { data: threads, isPending } = useGetAllThreads();
 
   if (isPending) {
     return <Loading />;
@@ -43,7 +44,7 @@ const ThreadList = () => {
 
   return (
     <>
-      <Threads threads={threads?.data as Thread[]} refetch={refetch} />
+      <Threads threads={threads?.data as Thread[]} />
     </>
   );
 };

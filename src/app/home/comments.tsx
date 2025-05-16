@@ -52,7 +52,7 @@ const Comments = () => {
 
   return (
     <>
-      <button onClick={handleOpenComment} className="btn btn-sm btn-outline">
+      <button onClick={handleOpenComment} className="btn btn-sm btn-outline flex-1">
         <MessageSquareMore strokeWidth={3} size={16} color="#4ED7F1" />
         1.1k
       </button>

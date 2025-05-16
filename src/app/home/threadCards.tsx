@@ -64,6 +64,7 @@ const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => 
                 <SquarePen size={16} />
               </button>
             </li>
+
             <li className="w-full">
               <button
                 className="btn btn-ghost btn-xs text-error justify-between"
@@ -81,12 +82,13 @@ const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => 
 
   const renderActions = () => {
     return (
-      <div className="card-actions items-center justify-end">
-        <button className="btn btn-sm btn-outline">
+      <div className="card-actions justify-between">
+        <button className="btn btn-sm btn-outline flex-1">
           <Heart strokeWidth={3} size={16} fill="red" color="red" /> 1.1k
         </button>
+
         <Comments />
-        <button className="btn btn-sm btn-outline">
+        <button className="btn btn-sm btn-outline flex-1">
           <Share2 strokeWidth={3} size={16} color="orange" />
           1.1k
         </button>
@@ -110,7 +112,7 @@ const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => 
           <div className="h-full flex-wrap">
             <p className="text-gray-700">{renderThreadParagraph}</p>
           </div>
-
+          <hr />
           {renderActions()}
         </div>
       </div>

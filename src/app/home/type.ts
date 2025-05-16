@@ -1,5 +1,6 @@
 export interface Thread {
   id?: string;
+  userId?: string;
   name: string;
   image: string;
   title?: string;
@@ -9,5 +10,4 @@ export interface Thread {
 
 export interface IThreadCard {
   threads: Thread[];
-  refetch?: () => void;
 }
