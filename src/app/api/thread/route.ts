@@ -6,7 +6,7 @@ import { auth } from '@/libs/auth';
 
 import { jsonResponse } from '@/utils/response';
 
-import { ThreadsRepository } from '@/service/repositories/threads';
+import { ThreadsRepository } from '@/repositories/threads';
 
 export const GET = async () => {
   const result = await pool.query(ThreadsRepository.allThreads);

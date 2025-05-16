@@ -44,4 +44,17 @@ const putFetch = async <T = unknown, R = unknown>(url: string, data: T): Promise
   return res.json();
 };
 
-export { getFetch, postFetch, putFetch };
+const deleteFetch = async <T = unknown>(url: string, id: string): Promise<T> => {
+  const res = await fetch(url, {
+    method: 'DELETE',
+    headers,
+    body: JSON.stringify(id),
+  });
+  if (!res.ok) {
+    throw new Error(`DELETE ${url} failed: ${res.statusText}`);
+  }
+
+  return res.json();
+};
+
+export { getFetch, postFetch, putFetch, deleteFetch };

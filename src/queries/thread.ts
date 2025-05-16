@@ -1,6 +1,8 @@
-import { Thread } from '@/app/home/_type';
-import { getFetch, postFetch } from '@/utils/fetch';
+import { Thread } from '@/app/home/type';
+
 import { useMutation, useQuery } from '@tanstack/react-query';
+
+import { deleteFetch, getFetch, postFetch, putFetch } from '@/utils/fetch';
 
 const getAllThreads = async (): Promise<ResponseStatus<Thread[]>> => {
   return getFetch('/api/thread');
@@ -8,6 +10,14 @@ const getAllThreads = async (): Promise<ResponseStatus<Thread[]>> => {
 
 const postThread = async (thread: Partial<Thread>): Promise<ResponseStatus<Partial<Thread>>> => {
   return postFetch('/api/thread', thread);
+};
+
+const putThread = async (thread: Partial<Thread>): Promise<ResponseStatus<Partial<Thread>>> => {
+  return putFetch(`/api/thread?id=${thread.id}`, thread);
+};
+
+const deleteThread = async (threadId: string): Promise<ResponseStatus<Partial<Thread>>> => {
+  return deleteFetch(`/api/thread?id=${threadId}`, threadId);
 };
 
 export const useGetAllThreads = () => {
@@ -22,4 +32,15 @@ export const usePostThread = () => {
     mutationFn: (newThread: Partial<Thread>) => postThread(newThread),
   });
 };
-  
+
+export const usePutThread = () => {
+  return useMutation({
+    mutationFn: (editThread: Partial<Thread>) => putThread(editThread),
+  });
+};
+
+export const useDeleteThread = () => {
+  return useMutation({
+    mutationFn: (thread: string) => deleteThread(thread),
+  });
+};

@@ -9,4 +9,5 @@ export interface Thread {
 
 export interface IThreadCard {
   threads: Thread[];
+  refetch?: () => void;
 }

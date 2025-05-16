@@ -3,7 +3,7 @@
 import { cn } from '@/libs/cn';
 import { CircleX, Plus } from 'lucide-react';
 import React, { useState } from 'react';
-import AddThreadForm from './_form';
+import AddThreadForm from './form';
 
 const NewPost = () => {
   const [openPost, setOpenPost] = useState<boolean>(false);

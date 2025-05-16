@@ -1,32 +1,40 @@
-'use client';
+import { Thread } from './type';
 
-import { IThreadCard, Thread } from './_type';
-import React, { useState } from 'react';
-
+import { useState } from 'react';
 import { Ellipsis, Heart, Share2, SquarePen, Trash2 } from 'lucide-react';
-import size from 'lodash/size';
+import { size } from 'lodash';
 
-import { Avatar, Loading } from '@/component';
+import { Avatar } from '@/component';
 import { formattedDate } from '@/utils/helper';
 import { DateFormat } from '@/utils/enums';
-import { useGetAllThreads } from '@/queries/thread';
 
-import Comments from './_comments';
-import EditPost from './_edit';
+import EditPost from './edit';
+import Comments from './comments';
+import Delete from './delete';
+import { useDeleteThread } from '@/queries/thread';
 
 const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => {
   const [openEditForm, setOpenEditForm] = useState<boolean>(false);
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
+
+  const deleteThread = useDeleteThread();
 
   const renderThreadParagraph =
     size(thread) >= 100 ? `${thread.slice(0, 450)}... see more` : thread;
 
   const handleEdit = (threadId: string) => {
     console.log('ID EDIT:', threadId);
+
     setOpenEditForm(!openEditForm);
   };
 
   const handleDelete = (threadId: string) => {
     console.log('ID DELETE:', threadId);
+    setOpenDelete(!openDelete);
+  };
+
+  const confirmDelete = () => {
+    deleteThread.mutate(id as string);
   };
 
   const renderHeader = () => {
@@ -114,48 +122,15 @@ const ThreadCards = ({ id, name, image, title, thread, created_at }: Thread) => 
         openEditForm={openEditForm}
         setOpenEditForm={() => setOpenEditForm(!openEditForm)}
       />
+
+      <Delete
+        id={id}
+        isDelete={openDelete}
+        onClose={() => setOpenDelete(!openDelete)}
+        confirmDelete={confirmDelete}
+      />
     </>
   );
 };
 
-const Threads = ({ threads }: IThreadCard) => {
-  if (!Array.isArray(threads) || threads.length === 0) {
-    return (
-      <div className="flex h-full items-center justify-center">
-        <h1>No Data Available</h1>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-      {threads?.map((thread) => (
-        <ThreadCards
-          key={thread.id}
-          id={thread.id}
-          name={thread.name}
-          image={thread.image}
-          title={thread.title}
-          thread={thread.thread}
-          created_at={thread.created_at}
-        />
-      ))}
-    </div>
-  );
-};
-
-const ThreadList = () => {
-  const { data: threads, isPending } = useGetAllThreads();
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  return (
-    <>
-      <Threads threads={threads?.data as Thread[]} />
-    </>
-  );
-};
-
-export default ThreadList;
+export default ThreadCards;

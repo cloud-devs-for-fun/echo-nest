@@ -1,8 +1,8 @@
 import React from 'react';
 
-import ThreadList from './_threadList';
+import ThreadList from './threadList';
 import { Flame, Search } from 'lucide-react';
-import NewPost from './_newPost';
+import NewPost from './newPost';
 
 const menuItem = ['Feeds', 'All', 'Following', 'Latest'];
 
